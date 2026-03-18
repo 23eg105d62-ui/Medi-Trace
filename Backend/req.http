@@ -1,0 +1,99 @@
+
+### Register
+POST http://localhost:5001/api/auth/register
+Content-Type: application/json
+
+{
+    "name": "Tannistha Mishra",
+    "email": "tannistha@gmail.com",
+    "password": "Test@1234"
+}
+
+### Login
+POST http://localhost:5001/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "tannistha@gmail.com",
+    "password": "NewPass@5678"
+}
+
+### Get Current User (requires token)
+GET http://localhost:5001/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YmE5YzEyNzU2ODk1N2NiN2UxZGQzYyIsImlhdCI6MTc3MzgzNzM0MSwiZXhwIjoxNzc0NDQyMTQxfQ.8V_9043AvjpzmyU74NXYRTi7PHhzzrCsfvUPDIMp6Ok
+
+### Update Password
+PUT http://localhost:5001/api/auth/update-password
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YmE5YzEyNzU2ODk1N2NiN2UxZGQzYyIsImlhdCI6MTc3MzgzNzM0MSwiZXhwIjoxNzc0NDQyMTQxfQ.8V_9043AvjpzmyU74NXYRTi7PHhzzrCsfvUPDIMp6Ok
+Content-Type: application/json
+
+{
+    "currentPassword": "Test@1234",
+    "newPassword": "NewPass@5678"
+}
+
+
+### ─── PHARMACY ROUTES ──────────────────────────────────────
+
+### Get Nearby Pharmacies 
+GET http://localhost:5001/api/pharmacies/nearby?lat=17.40523868197456&lng=78.47654160674658
+
+### Get Pharmacy by ID
+GET http://localhost:5001/api/pharmacies/69baa29483f098370624940f
+
+
+### ─── REPORT ROUTES ────────────────────────────────────────
+
+### Submit a Report (requires token)
+POST http://localhost:5001/api/reports
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YmE5YzEyNzU2ODk1N2NiN2UxZGQzYyIsImlhdCI6MTc3MzgzNzM0MSwiZXhwIjoxNzc0NDQyMTQxfQ.8V_9043AvjpzmyU74NXYRTi7PHhzzrCsfvUPDIMp6Ok
+Content-Type: application/json
+
+{
+    "pharmacyId": "69baa29483f098370624940f",
+    "medicineName": "Losartan 50mg",
+    "genericName": "Angiotensin II receptor blocker",
+    "status": "available"
+}
+
+### Submit a Low Stock Report
+POST http://localhost:5001/api/reports
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YmE5YzEyNzU2ODk1N2NiN2UxZGQzYyIsImlhdCI6MTc3MzgzNzM0MSwiZXhwIjoxNzc0NDQyMTQxfQ.8V_9043AvjpzmyU74NXYRTi7PHhzzrCsfvUPDIMp6Ok
+Content-Type: application/json
+
+{
+    "pharmacyId": "69baa29483f098370624940f",
+    "medicineName": "Insulin Glargine",
+    "genericName": "Long-acting insulin analogue",
+    "status": "low"
+}
+
+### Submit an Unavailable Report
+POST http://localhost:5001/api/reports
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YmE5YzEyNzU2ODk1N2NiN2UxZGQzYyIsImlhdCI6MTc3MzgzNzM0MSwiZXhwIjoxNzc0NDQyMTQxfQ.8V_9043AvjpzmyU74NXYRTi7PHhzzrCsfvUPDIMp6Ok
+Content-Type: application/json
+
+{
+    "pharmacyId": "69baa29483f098370624940f",
+    "medicineName": "Cyclosporine 25mg",
+    "genericName": "Immunosuppressant",
+    "status": "unavailable"
+}
+
+### Verify a Report (requires token)
+POST http://localhost:5001/api/reports/69baa29483f098370624940f/verify
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YmE5YzEyNzU2ODk1N2NiN2UxZGQzYyIsImlhdCI6MTc3MzgzNzM0MSwiZXhwIjoxNzc0NDQyMTQxfQ.8V_9043AvjpzmyU74NXYRTi7PHhzzrCsfvUPDIMp6Ok
+
+### Seed Pharmacies (run once, then delete the route)
+POST http://localhost:5001/api/pharmacies/seed
+Content-Type: application/json
+
+{
+    "name": "Apollo Pharmacy",
+    "address": "Road No. 12, Banjara Hills, Hyderabad",
+    "location": {
+        "type": "Point",
+        "coordinates": [78.4486, 17.4156]
+    }
+
+}
