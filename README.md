@@ -1,4 +1,4 @@
-# 🏥 MedMap — Real-Time Pharmacy Availability Tracker
+# 🏥 MediTrace — Real-Time Pharmacy Availability Tracker
 
 > A modern, real-time, location-aware web app that helps users find nearby pharmacies and check medicine availability instantly.
 
