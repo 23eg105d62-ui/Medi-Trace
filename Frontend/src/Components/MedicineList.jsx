@@ -57,20 +57,19 @@ export default function MedicineList({ setToast, filter, search, onCountUpdate }
     }, [coords]);
 
     const filtered = reports.filter(r => {
-        const matchFilter = !filter || filter === 'all' || normalizeStatus(r.status) === normalizeStatus(filter);
-        
-        const mName = (r.medicineName || r.name || "").toLowerCase();
-        const gName = (r.genericName || r.generic || "").toLowerCase();
-        const pName = (r.pharmacyName || "").toLowerCase();
-        const searchTerm = (search || "").toLowerCase().trim();
+    const matchFilter =
+        !filter ||
+        filter === "all" ||
+        r.status === filter;
 
-        const matchSearch = !searchTerm || 
-            mName.includes(searchTerm) || 
-            gName.includes(searchTerm) || 
-            pName.includes(searchTerm);
+    const matchSearch =
+        !search ||
+        r.medicineName?.toLowerCase().includes(search.toLowerCase()) ||
+        r.genericName?.toLowerCase().includes(search.toLowerCase()) ||
+        r.pharmacyName?.toLowerCase().includes(search.toLowerCase());
 
-        return matchFilter && matchSearch;
-    });
+    return matchFilter && matchSearch;
+});
 
     const counts = {
         available: reports.filter(r => r.status === 'available').length,
